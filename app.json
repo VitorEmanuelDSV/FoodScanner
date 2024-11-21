@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "foodscanner",
-    "slug": "snack-216169aa-fdbd-400d-9937-bb126634f6a3",
+    "slug": "foodscanner",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vitoremanueldsv.foodscanner"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eb52be47-1b3f-4576-85e7-1ca2e78101ea"
+      }
+    },
+    "owner": "vitoremanueldsv"
   }
 }
