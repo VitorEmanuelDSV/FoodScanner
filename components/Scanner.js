@@ -23,17 +23,15 @@ const Scanner = () => {
     setScanned(true);
     setLoading(true);
     try {
-      // Faz uma requisição à Open Food Facts API global usando o código de barras escaneado
-      const globalResponse = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${data}.json`);
-      if (globalResponse.data && globalResponse.data.product) {
-        setProductInfo(globalResponse.data.product); // Armazena as informações do produto
+      const brazilResponse = await axios.get(`https://br.openfoodfacts.org/api/v0/product/${data}.json`);
+      if (brazilResponse.data && brazilResponse.data.product) {
+        setProductInfo(brazilResponse.data.product);
       } else {
-        // Se não encontrar na API global, tenta a API do Brasil
-        const brazilResponse = await axios.get(`https://br.openfoodfacts.org/api/v0/product/${data}.json`);
-        if (brazilResponse.data && brazilResponse.data.product) {
-          setProductInfo(brazilResponse.data.product); // Armazena as informações do produto
-        } else {
-          setProductInfo(null); // Caso o produto não seja encontrado em nenhuma das APIs
+        const globalResponse = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${data}.json`);
+        if (globalResponse.data && globalResponse.data.product) {
+          setProductInfo(globalResponse.data.product);
+      } else {
+          setProductInfo(null);
         }
       }
     } catch (error) {
@@ -45,7 +43,7 @@ const Scanner = () => {
 
   const handleScanAgain = () => {
     setScanned(false);
-    setProductInfo(null); // Limpa as informações do produto para um novo escaneamento
+    setProductInfo(null);
   };
 
   if (hasPermission === null) {
@@ -157,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF6E1',
     borderRadius: 10,
     marginBottom: 40,
-    flexGrow: 1, // Permite que o conteúdo cresça
+    flexGrow: 1,
   },
   resultText: {
     fontSize: 16,
