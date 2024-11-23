@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -12,6 +19,8 @@ const LoginScreen = ({ navigation }) => {
   const handleSignUp = () => {
     navigation.navigate('Cadastre-se');
   };
+
+  
 
   return (
     <View style={styles.container}>
@@ -29,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
         autoCapitalize="none"
         placeholderTextColor="#A68768"
       />
-      
+
       <TextInput
         style={styles.input}
         placeholder="Senha"
@@ -46,6 +55,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity onPress={handleSignUp}>
         <Text style={styles.signUpText}>Não tem uma conta? Cadastre-se</Text>
       </TouchableOpacity>
+
     </View>
   );
 };

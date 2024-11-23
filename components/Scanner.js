@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
@@ -23,19 +31,23 @@ const Scanner = () => {
     setScanned(true);
     setLoading(true);
     try {
-      const brazilResponse = await axios.get(`https://br.openfoodfacts.org/api/v0/product/${data}.json`);
+      const brazilResponse = await axios.get(
+        `https://br.openfoodfacts.org/api/v0/product/${data}.json`
+      );
       if (brazilResponse.data && brazilResponse.data.product) {
         setProductInfo(brazilResponse.data.product);
       } else {
-        const globalResponse = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${data}.json`);
+        const globalResponse = await axios.get(
+          `https://world.openfoodfacts.org/api/v0/product/${data}.json`
+        );
         if (globalResponse.data && globalResponse.data.product) {
           setProductInfo(globalResponse.data.product);
-      } else {
+        } else {
           setProductInfo(null);
         }
       }
     } catch (error) {
-      console.error("Erro ao buscar informações do produto", error);
+      console.error('Erro ao buscar informações do produto', error);
       setProductInfo(null);
     }
     setLoading(false);
@@ -55,10 +67,6 @@ const Scanner = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={require('./assets/logo.jpg')} style={styles.logo} />
-        <Text style={styles.title}>FoodScanner</Text>
-      </View>
       {!scanned ? (
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -70,53 +78,75 @@ const Scanner = () => {
             <ActivityIndicator size="large" color="#653F2C" />
           ) : productInfo ? (
             <>
-              <Image source={{ uri: productInfo.image_url }} style={styles.productImage} />
+              <Image
+                source={{ uri: productInfo.image_url }}
+                style={styles.productImage}
+              />
               <Text style={styles.title}>Informações do Produto</Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Nome do Produto:</Text> {productInfo.product_name || 'Não disponível'}
+                <Text style={styles.label}>Nome do Produto:</Text>{' '}
+                {productInfo.product_name || 'Não disponível'}
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Descrição:</Text> {productInfo.description || 'Não disponível'}
+                <Text style={styles.label}>Descrição:</Text>{' '}
+                {productInfo.description || 'Não disponível'}
               </Text>
               <Text style={styles.resultText}>
-                <Text style={[styles.label, { fontWeight: 'bold' }]}>Valores Nutricionais</Text>
+                <Text style={[styles.label, { fontWeight: 'bold' }]}>
+                  Valores Nutricionais
+                </Text>
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Calorias:</Text> {productInfo.nutriments['energy-kcal'] || 'Não disponível'} kcal
+                <Text style={styles.label}>Calorias:</Text>{' '}
+                {productInfo.nutriments['energy-kcal'] || 'Não disponível'} kcal
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Proteínas:</Text> {productInfo.nutriments['proteins'] || 'Não disponível'} g
+                <Text style={styles.label}>Proteínas:</Text>{' '}
+                {productInfo.nutriments['proteins'] || 'Não disponível'} g
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Carboidratos:</Text> {productInfo.nutriments['carbohydrates'] || 'Não disponível'} g
+                <Text style={styles.label}>Carboidratos:</Text>{' '}
+                {productInfo.nutriments['carbohydrates'] || 'Não disponível'} g
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Gorduras:</Text> {productInfo.nutriments['fat'] || 'Não disponível'} g
+                <Text style={styles.label}>Gorduras:</Text>{' '}
+                {productInfo.nutriments['fat'] || 'Não disponível'} g
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Açúcares:</Text> {productInfo.nutriments['sugars'] || 'Não disponível'} g
+                <Text style={styles.label}>Açúcares:</Text>{' '}
+                {productInfo.nutriments['sugars'] || 'Não disponível'} g
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Sódio:</Text> {productInfo.nutriments['sodium'] || 'Não disponível'} mg
+                <Text style={styles.label}>Sódio:</Text>{' '}
+                {productInfo.nutriments['sodium'] || 'Não disponível'} mg
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Fibras:</Text> {productInfo.nutriments['fiber'] || 'Não disponível'} g
+                <Text style={styles.label}>Fibras:</Text>{' '}
+                {productInfo.nutriments['fiber'] || 'Não disponível'} g
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Alergênicos:</Text> {productInfo.ingredients_text || 'Não disponível'}
+                <Text style={styles.label}>Alergênicos:</Text>{' '}
+                {productInfo.ingredients_text || 'Não disponível'}
               </Text>
               <Text style={styles.resultText}>
-                <Text style={styles.label}>Porção:</Text> {productInfo.serving_size || 'Não disponível'}
+                <Text style={styles.label}>Porção:</Text>{' '}
+                {productInfo.serving_size || 'Não disponível'}
               </Text>
-              <TouchableOpacity style={styles.scanButton} onPress={handleScanAgain}>
+              <TouchableOpacity
+                style={styles.scanButton}
+                onPress={handleScanAgain}>
                 <Ionicons name="barcode-outline" size={60} color="#FADFB4" />
-                <Text style={styles.scanButtonText}>Escanear outro produto</Text>
+                <Text style={styles.scanButtonText}>
+                  Escanear outro produto
+                </Text>
               </TouchableOpacity>
             </>
           ) : (
             <>
               <Text style={styles.resultText}>Produto não encontrado.</Text>
-              <TouchableOpacity style={styles.scanButton} onPress={handleScanAgain}>
+              <TouchableOpacity
+                style={styles.scanButton}
+                onPress={handleScanAgain}>
                 <Ionicons name="barcode-outline" size={60} color="#FADFB4" />
                 <Text style={styles.scanButtonText}>Escanear Novamente</Text>
               </TouchableOpacity>
@@ -133,17 +163,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#FADFB4',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    marginRight: 10,
   },
   title: {
     fontSize: 24,

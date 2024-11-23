@@ -14,13 +14,8 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={require('./assets/logo.jpg')} style={styles.logo} />
-        <Text style={styles.title}>Bem-vindo ao FoodScanner</Text>
+        <Text style={styles.title}>Bem-vindo ao Scan Food</Text>
       </View>
-
-      <TouchableOpacity style={styles.scanButton} onPress={handleScanBarcode}>
-        <Ionicons name="barcode-outline" size={60} color="#FADFB4" />
-        <Text style={styles.scanButtonText}>Escanear Código de Barras</Text>
-      </TouchableOpacity>
 
       <View style={styles.infoContainer}>
         <Text style={styles.infoTitle}>Valores Nutricionais</Text>
@@ -33,6 +28,12 @@ const HomeScreen = () => {
           O aplicativo também exibirá se o alimento contém ingredientes que podem causar alergias, como glúten, leite, soja, entre outros.
         </Text>
       </View>
+
+      <TouchableOpacity style={styles.scanButton} onPress={handleScanBarcode}>
+        <Ionicons name="barcode-outline" size={60} color="#FADFB4" />
+        <Text style={styles.scanButtonText}>Escanear Código de Barras</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    marginBottom: 40,
+    marginTop: 40,
   },
   scanButtonText: {
     color: '#FADFB4',
